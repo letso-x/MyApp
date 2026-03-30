@@ -1,14 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
+using MyApp.Data;
 using MyApp.Models;
 
 namespace MyApp.Controllers
 {
     public class ItemsController : Controller
     {
-        public IActionResult Overview()
+        private readonly MyAppContext _context;
+        public ItemsController(MyAppContext context)
         {
-            var item = new Item();
+            _context = context;
+        }
+
+
+        public IActionResult Index()
+        {
+            var item = _context.Items.ToList();
             return View();
         }
+
     }
 }
