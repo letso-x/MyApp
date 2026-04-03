@@ -582,7 +582,7 @@ iframe {
 }
 
 summary {
-  display: list-item;
+  display: list-TaskItem;
   cursor: pointer;
 }
 

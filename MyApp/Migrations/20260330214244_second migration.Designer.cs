@@ -24,7 +24,7 @@ namespace MyApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MyApp.Models.Item", b =>
+            modelBuilder.Entity("MyApp.Models.TaskItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace MyApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.ToTable("TaskItems");
                 });
 #pragma warning restore 612, 618
         }
