@@ -1,0 +1,21 @@
+﻿@model MyApp.Models.TaskItem
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="login-page">
+    <div class="bg-overlay"></div>
+    <div class="login-card">
+        <h2>Edit Task</h2>
+        <p class="subtitle">Update the task information</p>
+
+        <form asp-action="Edit" method="post">
+            <div class="field">
+                <label for="Name">Name</label>
+                <input type="text" asp-for="Name" required />
+            </div>
+            
+            <button type="submit" class="btn">Submit</button>
+            <p class="footer"><a href="/Tasks/Index">Cancel</a></p>
+        </form>
+    </div>
+</div>

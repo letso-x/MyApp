@@ -1,0 +1,23 @@
+﻿@model MyApp.Models.TaskItem
+@{
+    ViewData["Title"] = "Overview";
+}
+<div class="login-page">
+    <div class="bg-overlay"></div>
+    <div class="login-card">
+        <h2>Task Overview</h2>
+        <p class="subtitle">Details for @Model.Name</p>
+
+        <div class="field" style="text-align: left;">
+            <label>Description</label>
+            <p>@Model.Description</p>
+        </div>
+        
+        <div class="field" style="text-align: left;">
+            <label>Status</label>
+            <p>@Model.Status</p>
+        </div>
+
+        <p class="footer"><a href="/Tasks/Index">Back to List</a></p>
+    </div>
+</div>

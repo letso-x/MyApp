@@ -1112,14 +1112,14 @@
   const CLASS_NAME_CAROUSEL = 'carousel';
   const CLASS_NAME_ACTIVE$2 = 'active';
   const CLASS_NAME_SLIDE = 'slide';
-  const CLASS_NAME_END = 'carousel-item-end';
-  const CLASS_NAME_START = 'carousel-item-start';
-  const CLASS_NAME_NEXT = 'carousel-item-next';
-  const CLASS_NAME_PREV = 'carousel-item-prev';
+  const CLASS_NAME_END = 'carousel-TaskItem-end';
+  const CLASS_NAME_START = 'carousel-TaskItem-start';
+  const CLASS_NAME_NEXT = 'carousel-TaskItem-next';
+  const CLASS_NAME_PREV = 'carousel-TaskItem-prev';
   const SELECTOR_ACTIVE = '.active';
-  const SELECTOR_ITEM = '.carousel-item';
-  const SELECTOR_ACTIVE_ITEM = SELECTOR_ACTIVE + SELECTOR_ITEM;
-  const SELECTOR_ITEM_IMG = '.carousel-item img';
+  const SELECTOR_TaskItem = '.carousel-TaskItem';
+  const SELECTOR_ACTIVE_TaskItem = SELECTOR_ACTIVE + SELECTOR_TaskItem;
+  const SELECTOR_TaskItem_IMG = '.carousel-TaskItem img';
   const SELECTOR_INDICATORS = '.carousel-indicators';
   const SELECTOR_DATA_SLIDE = '[data-bs-slide], [data-bs-slide-to]';
   const SELECTOR_DATA_RIDE = '[data-bs-ride="carousel"]';
@@ -1212,20 +1212,20 @@
       this.cycle();
     }
     to(index) {
-      const items = this._getItems();
-      if (index > items.length - 1 || index < 0) {
+      const TaskItems = this._getTaskItems();
+      if (index > TaskItems.length - 1 || index < 0) {
         return;
       }
       if (this._isSliding) {
         EventHandler.one(this._element, EVENT_SLID, () => this.to(index));
         return;
       }
-      const activeIndex = this._getItemIndex(this._getActive());
+      const activeIndex = this._getTaskItemIndex(this._getActive());
       if (activeIndex === index) {
         return;
       }
       const order = index > activeIndex ? ORDER_NEXT : ORDER_PREV;
-      this._slide(order, items[index]);
+      this._slide(order, TaskItems[index]);
     }
     dispose() {
       if (this._swipeHelper) {
@@ -1252,7 +1252,7 @@
       }
     }
     _addTouchEventListeners() {
-      for (const img of SelectorEngine.find(SELECTOR_ITEM_IMG, this._element)) {
+      for (const img of SelectorEngine.find(SELECTOR_TaskItem_IMG, this._element)) {
         EventHandler.on(img, EVENT_DRAG_START, event => event.preventDefault());
       }
       const endCallBack = () => {
@@ -1291,8 +1291,8 @@
         this._slide(this._directionToOrder(direction));
       }
     }
-    _getItemIndex(element) {
-      return this._getItems().indexOf(element);
+    _getTaskItemIndex(element) {
+      return this._getTaskItems().indexOf(element);
     }
     _setActiveIndicatorElement(index) {
       if (!this._indicatorsElement) {
@@ -1321,16 +1321,16 @@
       }
       const activeElement = this._getActive();
       const isNext = order === ORDER_NEXT;
-      const nextElement = element || getNextActiveElement(this._getItems(), activeElement, isNext, this._config.wrap);
+      const nextElement = element || getNextActiveElement(this._getTaskItems(), activeElement, isNext, this._config.wrap);
       if (nextElement === activeElement) {
         return;
       }
-      const nextElementIndex = this._getItemIndex(nextElement);
+      const nextElementIndex = this._getTaskItemIndex(nextElement);
       const triggerEvent = eventName => {
         return EventHandler.trigger(this._element, eventName, {
           relatedTarget: nextElement,
           direction: this._orderToDirection(order),
-          from: this._getItemIndex(activeElement),
+          from: this._getTaskItemIndex(activeElement),
           to: nextElementIndex
         });
       };
@@ -1370,10 +1370,10 @@
       return this._element.classList.contains(CLASS_NAME_SLIDE);
     }
     _getActive() {
-      return SelectorEngine.findOne(SELECTOR_ACTIVE_ITEM, this._element);
+      return SelectorEngine.findOne(SELECTOR_ACTIVE_TaskItem, this._element);
     }
-    _getItems() {
-      return SelectorEngine.find(SELECTOR_ITEM, this._element);
+    _getTaskItems() {
+      return SelectorEngine.find(SELECTOR_TaskItem, this._element);
     }
     _clearInterval() {
       if (this._interval) {
@@ -1848,8 +1848,8 @@
     var uaData = navigator.userAgentData;
 
     if (uaData != null && uaData.brands && Array.isArray(uaData.brands)) {
-      return uaData.brands.map(function (item) {
-        return item.brand + "/" + item.version;
+      return uaData.brands.map(function (TaskItem) {
+        return TaskItem.brand + "/" + TaskItem.version;
       }).join(' ');
     }
 
@@ -3563,7 +3563,7 @@
   const SELECTOR_MENU = '.dropdown-menu';
   const SELECTOR_NAVBAR = '.navbar';
   const SELECTOR_NAVBAR_NAV = '.navbar-nav';
-  const SELECTOR_VISIBLE_ITEMS = '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)';
+  const SELECTOR_VISIBLE_TaskItemS = '.dropdown-menu .dropdown-TaskItem:not(.disabled):not(:disabled)';
   const PLACEMENT_TOP = isRTL() ? 'top-end' : 'top-start';
   const PLACEMENT_TOPEND = isRTL() ? 'top-start' : 'top-end';
   const PLACEMENT_BOTTOM = isRTL() ? 'bottom-end' : 'bottom-start';
@@ -3783,18 +3783,18 @@
         ...execute(this._config.popperConfig, [defaultBsPopperConfig])
       };
     }
-    _selectMenuItem({
+    _selectMenuTaskItem({
       key,
       target
     }) {
-      const items = SelectorEngine.find(SELECTOR_VISIBLE_ITEMS, this._menu).filter(element => isVisible(element));
-      if (!items.length) {
+      const TaskItems = SelectorEngine.find(SELECTOR_VISIBLE_TaskItemS, this._menu).filter(element => isVisible(element));
+      if (!TaskItems.length) {
         return;
       }
 
-      // if target isn't included in items (e.g. when expanding the dropdown)
-      // allow cycling to get the last item in case key equals ARROW_UP_KEY
-      getNextActiveElement(items, target, key === ARROW_DOWN_KEY$1, !items.includes(target)).focus();
+      // if target isn't included in TaskItems (e.g. when expanding the dropdown)
+      // allow cycling to get the last TaskItem in case key equals ARROW_UP_KEY
+      getNextActiveElement(TaskItems, target, key === ARROW_DOWN_KEY$1, !TaskItems.includes(target)).focus();
     }
 
     // Static
@@ -3860,7 +3860,7 @@
       if (isUpOrDownEvent) {
         event.stopPropagation();
         instance.show();
-        instance._selectMenuItem(event);
+        instance._selectMenuTaskItem(event);
         return;
       }
       if (instance._isShown()) {
@@ -4794,7 +4794,7 @@
   };
   // js-docs-end allow-list
 
-  const uriAttributes = new Set(['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href']);
+  const uriAttributes = new Set(['background', 'cite', 'href', 'TaskItemtype', 'longdesc', 'poster', 'src', 'xlink:href']);
 
   /**
    * A pattern that recognizes URLs that are safe wrt. XSS in URL navigation
@@ -5591,15 +5591,15 @@
   const EVENT_ACTIVATE = `activate${EVENT_KEY$2}`;
   const EVENT_CLICK = `click${EVENT_KEY$2}`;
   const EVENT_LOAD_DATA_API$1 = `load${EVENT_KEY$2}${DATA_API_KEY}`;
-  const CLASS_NAME_DROPDOWN_ITEM = 'dropdown-item';
+  const CLASS_NAME_DROPDOWN_TaskItem = 'dropdown-TaskItem';
   const CLASS_NAME_ACTIVE$1 = 'active';
   const SELECTOR_DATA_SPY = '[data-bs-spy="scroll"]';
   const SELECTOR_TARGET_LINKS = '[href]';
   const SELECTOR_NAV_LIST_GROUP = '.nav, .list-group';
   const SELECTOR_NAV_LINKS = '.nav-link';
-  const SELECTOR_NAV_ITEMS = '.nav-item';
-  const SELECTOR_LIST_ITEMS = '.list-group-item';
-  const SELECTOR_LINK_ITEMS = `${SELECTOR_NAV_LINKS}, ${SELECTOR_NAV_ITEMS} > ${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`;
+  const SELECTOR_NAV_TaskItemS = '.nav-TaskItem';
+  const SELECTOR_LIST_TaskItemS = '.list-group-TaskItem';
+  const SELECTOR_LINK_TaskItemS = `${SELECTOR_NAV_LINKS}, ${SELECTOR_NAV_TaskItemS} > ${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_TaskItemS}`;
   const SELECTOR_DROPDOWN = '.dropdown';
   const SELECTOR_DROPDOWN_TOGGLE$1 = '.dropdown-toggle';
   const Default$1 = {
@@ -5736,7 +5736,7 @@
         // if we are scrolling down, pick the bigger offsetTop
         if (userScrollsDown && entryIsLowerThanPrevious) {
           activate(entry);
-          // if parent isn't scrolled, let's keep the first visible item, breaking the iteration
+          // if parent isn't scrolled, let's keep the first visible TaskItem, breaking the iteration
           if (!parentScrollTop) {
             return;
           }
@@ -5781,15 +5781,15 @@
     }
     _activateParents(target) {
       // Activate dropdown parents
-      if (target.classList.contains(CLASS_NAME_DROPDOWN_ITEM)) {
+      if (target.classList.contains(CLASS_NAME_DROPDOWN_TaskItem)) {
         SelectorEngine.findOne(SELECTOR_DROPDOWN_TOGGLE$1, target.closest(SELECTOR_DROPDOWN)).classList.add(CLASS_NAME_ACTIVE$1);
         return;
       }
       for (const listGroup of SelectorEngine.parents(target, SELECTOR_NAV_LIST_GROUP)) {
         // Set triggered links parents as active
         // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
-        for (const item of SelectorEngine.prev(listGroup, SELECTOR_LINK_ITEMS)) {
-          item.classList.add(CLASS_NAME_ACTIVE$1);
+        for (const TaskItem of SelectorEngine.prev(listGroup, SELECTOR_LINK_TaskItemS)) {
+          TaskItem.classList.add(CLASS_NAME_ACTIVE$1);
         }
       }
     }
@@ -5868,8 +5868,8 @@
   const SELECTOR_DROPDOWN_MENU = '.dropdown-menu';
   const NOT_SELECTOR_DROPDOWN_TOGGLE = `:not(${SELECTOR_DROPDOWN_TOGGLE})`;
   const SELECTOR_TAB_PANEL = '.list-group, .nav, [role="tablist"]';
-  const SELECTOR_OUTER = '.nav-item, .list-group-item';
-  const SELECTOR_INNER = `.nav-link${NOT_SELECTOR_DROPDOWN_TOGGLE}, .list-group-item${NOT_SELECTOR_DROPDOWN_TOGGLE}, [role="tab"]${NOT_SELECTOR_DROPDOWN_TOGGLE}`;
+  const SELECTOR_OUTER = '.nav-TaskItem, .list-group-TaskItem';
+  const SELECTOR_INNER = `.nav-link${NOT_SELECTOR_DROPDOWN_TOGGLE}, .list-group-TaskItem${NOT_SELECTOR_DROPDOWN_TOGGLE}, [role="tab"]${NOT_SELECTOR_DROPDOWN_TOGGLE}`;
   const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]'; // TODO: could only be `tab` in v6
   const SELECTOR_INNER_ELEM = `${SELECTOR_INNER}, ${SELECTOR_DATA_TOGGLE}`;
   const SELECTOR_DATA_TOGGLE_ACTIVE = `.${CLASS_NAME_ACTIVE}[data-bs-toggle="tab"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="pill"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="list"]`;
@@ -6054,7 +6054,7 @@
       return elem.matches(SELECTOR_INNER_ELEM) ? elem : SelectorEngine.findOne(SELECTOR_INNER_ELEM, elem);
     }
 
-    // Try to get the outer element (usually the .nav-item)
+    // Try to get the outer element (usually the .nav-TaskItem)
     _getOuterElement(elem) {
       return elem.closest(SELECTOR_OUTER) || elem;
     }

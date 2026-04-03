@@ -12,7 +12,7 @@ namespace MyApp.Migrations
         {
             migrationBuilder.AddColumn<double>(
                 name: "Price",
-                table: "Items",
+                table: "TaskItems",
                 type: "float",
                 nullable: false,
                 defaultValue: 0.0);
@@ -23,7 +23,7 @@ namespace MyApp.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Price",
-                table: "Items");
+                table: "TaskItems");
         }
     }
 }
