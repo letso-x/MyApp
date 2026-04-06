@@ -23,8 +23,7 @@ namespace MyApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            //var TaskItem =await _context.TaskItems.ToListAsync();
-            //return View(TaskItem);
+            
             var userId = GetUserId();
             var taskItems = await _context.TaskItems
                 .Where(x => x.UserId == userId)
@@ -70,8 +69,6 @@ namespace MyApp.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            //var TaskItem = await _context.TaskItems.FirstOrDefaultAsync(x => x.Id==id);
-            //return View(TaskItem);
 
             var userId = GetUserId();
             var taskItem = await _context.TaskItems
@@ -104,20 +101,6 @@ namespace MyApp.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-
-            //var TaskItem = await _context.TaskItems.FindAsync(id);
-            //if (TaskItem != null )
-            //{
-            //    _context.TaskItems.Remove(TaskItem);
-            //    await _context.SaveChangesAsync();
-
-            //}
-            //return RedirectToAction("Index");
-            //var userId = GetUserId();
-            //var taskItem = await _context.TaskItems
-            //    .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
-            //if (taskItem == null) return Forbid();
-            //return View(taskItem);
 
                 var userId = GetUserId();
                 var taskItem = await _context.TaskItems
