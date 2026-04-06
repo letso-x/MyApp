@@ -1,6 +1,8 @@
-Task Manager (ASP.NET Core MVC)
+Task Manager (ASP.NET Core MVC) -- Live Deployment
 
-A simple task management web application built with ASP.NET Core MVC. Users can create, update, track, and delete tasks with authentication and per-user data isolation.
+A full-stack task management web application built with ASP.NET Core MVC, featuring authentication, per-user data isolation, and real-time task status updates.
+
+Live App: https://tseqetatm-gxc7c2gub0defnbh.southafricanorth-01.azurewebsites.net/
 
 Core Functionality:
 - User authentication (login/logout)
@@ -11,11 +13,21 @@ Core Functionality:
 - User-specific data filtering (each user only sees their own tasks)
 
 Tech Stack:
+- Backend
+
 - ASP.NET Core MVC
 - Entity Framework Core
-- SQL Database (via DbContext)
+- SQL Database (Azure SQL / local SQL Server)
+
+-Frontend
+
 - Razor Views
-- Bootstrap (with custom styling)
+- Bootstrap + custom CSS (glassmorphism UI)
+
+-Deployment
+
+- Microsoft Azure App Service
+
 
 Project Structure:
 
